@@ -1,26 +1,39 @@
 import _ from "lodash";
-import { READ_EVENTS } from "../actions";
+import {
+  CREATE_EVENT,
+  READ_EVENTS,
+  READ_EVENT,
+  UPDATE_EVENT,
+  DELETE_EVENT
+} from "../actions";
 
 const initalState = { value: 0 };
 
-export default (state = initalState, action) => {
+export default (events = {}, action) => {
+  console.log("action.type");
+  console.log(action.type);
+
   switch (action.type) {
+    case CREATE_EVENT:
+    case READ_EVENT:
+    case UPDATE_EVENT:
+      const data = action.response.data;
+      return { ...events, [data.id]: data };
+
     case READ_EVENTS:
-      //  lodashなし
-      //  console.log(action.response.data);
-      // [
-      //    {id: 1, title: "Let's have an event 1!", body: "This is the body for event 1."}
-      //    {id: 2, title: "Let's have an event 2!", body: "This is the body for event 2."}
-      // ]
-      //
-      //  lodashあり
-      //  console.log(_.mapKeys(action.response.data, "id"));
-      // {
-      //   1: {id: 1, title: "Let's have an event 1!", body: "This is the body for event 1."}
-      //   2: {id: 2, title: "Let's have an event 2!", body: "This is the body for event 2."}
-      // }
+      console.log("readEvents");
+      console.log(action.type);
       return _.mapKeys(action.response.data, "id");
+
+    case DELETE_EVENT:
+      // TODO:bug ここに遷移できない
+      console.log("deleteEvent");
+      console.log(action.id);
+      delete events[action.id];
+      return { ...events };
+
     default:
-      return state;
+      console.log("default");
+      return events;
   }
 };
