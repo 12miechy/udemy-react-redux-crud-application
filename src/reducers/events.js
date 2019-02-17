@@ -10,7 +10,6 @@ import {
 const initalState = { value: 0 };
 
 export default (events = {}, action) => {
-  console.log("action.type");
   console.log(action.type);
 
   switch (action.type) {
@@ -19,21 +18,12 @@ export default (events = {}, action) => {
     case UPDATE_EVENT:
       const data = action.response.data;
       return { ...events, [data.id]: data };
-
     case READ_EVENTS:
-      console.log("readEvents");
-      console.log(action.type);
       return _.mapKeys(action.response.data, "id");
-
     case DELETE_EVENT:
-      // TODO:bug ここに遷移できない
-      console.log("deleteEvent");
-      console.log(action.id);
       delete events[action.id];
       return { ...events };
-
     default:
-      console.log("default");
       return events;
   }
 };

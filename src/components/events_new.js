@@ -57,17 +57,19 @@ class EventsNew extends Component {
             component={this.renderField}
           />
         </div>
-        <RaisedButton
-          label="Submit"
-          type="submit"
-          style={style}
-          disabled={pristine || submitting || invalid}
-        />
-        <RaisedButton
-          label="Cancel"
-          style={style}
-          containerElement={<Link to="/" />}
-        />
+        <div>
+          <RaisedButton
+            label="Submit"
+            type="submit"
+            style={style}
+            disabled={pristine || submitting || invalid}
+          />
+          <RaisedButton
+            label="Cancel"
+            style={style}
+            containerElement={<Link to="/" />}
+          />
+        </div>
       </form>
     );
   }
